@@ -1,0 +1,23 @@
+<div>
+    <fieldset>
+        <legend>Usuários cadastrados</legend>
+        <br>
+        <table border="1" cellSpacing="0">
+            <tr>
+                <td><b>Nome</b></td>
+                <td><b>Email</b></td>
+                <td><b>Senha</b></td>
+                <td><b>Permissão</b></td>
+                <td>Ações</td>
+            </tr>
+            <tr *ngFor="let user of listaExibida; let i = index">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.password}}</td>
+                <td>{{user.roles}}</td>
+                <td><button (click)="clickEditar(user)">Editar</button></td>
+            </tr>
+        </table>
+        <br>
+    </fieldset>
+</div>
