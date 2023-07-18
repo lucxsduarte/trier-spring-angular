@@ -11,13 +11,8 @@ import { User } from '../../models/user';
 export class UserTableComponent implements OnInit{
 
   constructor(private service: UserServiceService){}
-  public name: string = "";
-  public email: string = "";
-  public password: string = "";
-  public roles: string = "";
+
   public listaExibida : User[] = [];
-  public listaCompleta: User[] = [];
-  public listaFiltrada: User[] = [];
   
   ngOnInit(): void {
     this.service.getUsers().subscribe((data) => {
@@ -26,7 +21,16 @@ export class UserTableComponent implements OnInit{
 
   }
 
-  clickEditar(user: any): void{
+  clickEditar(user: User, index: number) {
     this.service.clickEditar(user);
+    this.service.editingUser = user;
   }
+
+  clickDeletar(user: User) {
+    this.service.deleteUser(user).subscribe(() => {
+      this.service.getUsers().subscribe((data) => {
+        this.listaExibida = data;
+      });
+    });
+  } 
 }

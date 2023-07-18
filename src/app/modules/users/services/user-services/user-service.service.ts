@@ -1,60 +1,66 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
 
-  public listaCompleta: User[] = [];
-  public listaFiltrada: User[] = [];
-  public nomeFiltrado: string = "";
+  private urlBase: string = "http://localhost:8080/usuarios";
+  private userSubject = new Subject<User[]>();
+  public selectUserEvent = new EventEmitter();
+  public indiceEditado: number = -1;
+  public editingUser: User | null = null;
+  
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
 
-  public name: string = "";
-  public email: string = "";
-  public password: string = "";
-  public roles: string = "";
-  public emitName = new EventEmitter();
-  public emitEmail = new EventEmitter();
-  public emitPassword = new EventEmitter();
-  public emitRoles = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
   public getUsers(): Observable<User[]> {
     let url = `http://localhost:8080/usuarios`;
-    return this.http.get<User[]>(url);
+    this.http.get<User[]>(this.urlBase).subscribe(users => this.userSubject.next(users));
+    return this.userSubject.asObservable();
   }
 
-  public getName(): Observable<User[]> {
-    let url = `http://localhost:8080/usuarios/name/${this.name}`;
-    return this.http.get<User[]>(url);
+  public filtrarPorNome(nome: string): Observable<User[]> {
+    let url = `${this.urlBase}/name/${nome}`;
+    this.http.get<User[]>(url).subscribe(users => this.userSubject.next(users));
+    return this.userSubject.asObservable();
   }
 
-  public filtrarPorNome(nome: string) {
-    this.nomeFiltrado = nome;
-    if (this.nomeFiltrado) {
-      this.getName().subscribe((users: User[]) => {
-        this.listaFiltrada = users;
-      });
-    } else {
-      this.listaFiltrada = this.listaCompleta;
-    }
+  public clickEditar(user: User){
+    this.selectUserEvent.emit(user);
   }
 
-  public clickEditar(user: any){
-    this.name = user.name;
-    this.email = user.email;
-    this.password = user.password;
-    this.roles = user.roles;
-    this.emitName.emit(this.name);
-    this.emitEmail.emit(this.email);
-    this.emitPassword.emit(this.password);
-    this.emitRoles.emit(this.roles);
+  public insertUser(user: User): Observable<User> {
+    return this.http.post<User>(this.urlBase, JSON.stringify(user), this.httpOptions).pipe(
+      tap(() => {
+        this.getUsers();
+      })
+    ); 
   }
 
+  public deleteUser(user: User): Observable<void> {
+    return this.http.delete<void>(`${this.urlBase}/${user.id}`);
+  }
+
+  public editUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.urlBase}/${user.id}`, JSON.stringify(user), this.httpOptions).pipe(
+      tap(() => {
+        this.getUsers();
+      })
+    ); 
+  }
+
+  public clearIndice() {
+    this.indiceEditado = -1;
+  }
 
 }

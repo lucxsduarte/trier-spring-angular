@@ -9,35 +9,34 @@ import { User } from '../../models/user';
 })
 export class UserFormComponent implements OnInit{
 
-  public name: string = "";
-  public email: string = "";
-  public password: string = "";
-  public roles: string = "";
-  public filtraNome: User[] = [];
+  public user = {} as User;
+  public users!: User[];
+
 
   constructor(private service: UserServiceService){}
 
   public filtrarNome() {
-    this.service.filtrarPorNome(this.name);
+    this.service.filtrarPorNome(this.user.name);
+  }
+
+  public insertUser(){
+    if(this.service.editingUser) {
+      this.service.editUser(this.user).subscribe((data) => {
+        console.log(data);
+        this.service.editingUser = null;
+      })
+    } else {
+      this.service.insertUser(this.user).subscribe((data) => {
+        console.log(data);
+      });
+    }
+    
   }
 
   ngOnInit(): void {
-    
-    this.service.emitName.subscribe((nome: string) =>{
-      this.name = nome;
+    this.service.selectUserEvent.subscribe((user: User) => {
+      this.user = user;
+      this.service.editingUser = user;
     });
-
-    this.service.emitEmail.subscribe((email: string) =>{
-      this.email = email;
-    });
-
-    this.service.emitPassword.subscribe((password: string) =>{
-      this.password = password;
-    });
-
-    this.service.emitRoles.subscribe((roles: string) =>{
-      this.roles = roles;
-    });
-  
   }
 }

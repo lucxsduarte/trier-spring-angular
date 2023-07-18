@@ -8,14 +8,5 @@ import { UserServiceService } from '../../services/user-services/user-service.se
 })
 export class UserComponent {
 
-  constructor(private service: UserServiceService){}
-
-  public getList() {
-    this.service.getUsers().subscribe((data) => {
-      console.log(data);
-    })
-  }
-
-  
 
 }

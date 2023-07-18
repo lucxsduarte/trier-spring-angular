@@ -1,23 +1,21 @@
-<div>
-    <fieldset>
-        <legend>Usuários cadastrados</legend>
+<div class="box">
         <br>
         <table border="1" cellSpacing="0">
-            <tr>
+            <th colspan="5">Usuários cadastrados</th>
+            <tr class="tableTitle">
                 <td><b>Nome</b></td>
                 <td><b>Email</b></td>
                 <td><b>Senha</b></td>
                 <td><b>Permissão</b></td>
-                <td>Ações</td>
+                <td><b>Ações</b></td>
             </tr>
             <tr *ngFor="let user of listaExibida; let i = index">
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.password}}</td>
                 <td>{{user.roles}}</td>
-                <td><button (click)="clickEditar(user)">Editar</button></td>
+                <td class="centraliza"><button (click)="clickEditar(user, i)">Editar</button><button (click)="clickDeletar(user)">Deletar</button></td>
             </tr>
         </table>
         <br>
-    </fieldset>
 </div>
