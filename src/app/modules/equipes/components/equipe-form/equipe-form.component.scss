@@ -4,13 +4,12 @@
     padding: 15px;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
-    width: 85%;
-    border: none;
+legend {
+    text-align: center;
 }
 
-input[type="radio"] {
-    width: 10%;
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 85%;
     border: none;
 }
 
@@ -34,4 +33,3 @@ input[type="radio"] {
     border-bottom-left-radius: 1px;
     border-bottom-right-radius: 1px;
 }
-

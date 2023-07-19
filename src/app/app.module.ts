@@ -6,6 +6,10 @@ import { HttpClientModule} from '@angular/common/http';
 import { HomeModule } from './modules/home/home.module';
 import { UsersModule } from './modules/users/users.module';
 import { MenuModule } from './modules/menu/menu.module';
+import { FormsModule } from '@angular/forms';
+import { PaisesModule } from './modules/paises/paises.module';
+import { EquipesModule } from './modules/equipes/equipes.module';
+import { CampeonatosModule } from './modules/campeonatos/campeonatos.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +19,11 @@ import { MenuModule } from './modules/menu/menu.module';
     HttpClientModule,
     HomeModule,
     UsersModule,
-    MenuModule
+    MenuModule,
+    PaisesModule,
+    EquipesModule,
+    CampeonatosModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

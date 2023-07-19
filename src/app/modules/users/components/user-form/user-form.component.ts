@@ -10,8 +10,6 @@ import { User } from '../../models/user';
 export class UserFormComponent implements OnInit{
 
   public user = {} as User;
-  public users!: User[];
-
 
   constructor(private service: UserServiceService){}
 
@@ -20,23 +18,21 @@ export class UserFormComponent implements OnInit{
   }
 
   public insertUser(){
-    if(this.service.editingUser) {
+    if(this.user.id) {
       this.service.editUser(this.user).subscribe((data) => {
         console.log(data);
-        this.service.editingUser = null;
       })
     } else {
       this.service.insertUser(this.user).subscribe((data) => {
         console.log(data);
       });
     }
-    
+    this.user = {} as User;
   }
 
   ngOnInit(): void {
     this.service.selectUserEvent.subscribe((user: User) => {
       this.user = user;
-      this.service.editingUser = user;
     });
   }
 }

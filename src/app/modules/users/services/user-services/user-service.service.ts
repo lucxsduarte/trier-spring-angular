@@ -13,13 +13,10 @@ export class UserServiceService {
   private urlBase: string = "http://localhost:8080/usuarios";
   private userSubject = new Subject<User[]>();
   public selectUserEvent = new EventEmitter();
-  public indiceEditado: number = -1;
-  public editingUser: User | null = null;
   
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
-
 
   constructor(private http: HttpClient) {}
 
@@ -57,10 +54,6 @@ export class UserServiceService {
         this.getUsers();
       })
     ); 
-  }
-
-  public clearIndice() {
-    this.indiceEditado = -1;
   }
 
 }

@@ -1,0 +1,14 @@
+<div class="box">
+    <table border="1" cellSpacing="0">
+        <th colspan="5">Países cadastrados</th>
+        <tr class="tableTitle">
+            <td><b>Nome</b></td>
+            <td><b>Ações</b></td>
+        </tr>
+        <tr *ngFor="let pais of listaExibida; let i = index">
+            <td>{{pais.name}}</td>
+            <td class="acoes"><button (click)="clickEditar(pais)">Editar</button><button (click)="clickDeletar(pais)">Deletar</button></td>
+        </tr>
+    </table>
+    <br>
+</div>

@@ -1,2 +1,14 @@
-<a routerLink="" routerLinkActive="linkSelected">Menu</a><br>
-<a routerLink="/usuarios" routerLinkActive="linkSelected">Usuários</a>
+<button (click)="abrirMenu()">
+    <img src="../../../../../assets/icons/18893109461577436997.svg" alt="">
+</button>
+<div id="menuLateral" [ngStyle]="{'width': menuWidth}" class="menuLateral">
+    <a href="javascript:void(0)" class="botaoFechado" (click)="fecharMenu()">&times;</a>
+    <a routerLink="/usuarios" routerLinkActive="linkSelected">Usuários</a>
+    <a routerLink="/pais" routerLinkActive="linkSelected">Países</a>
+    <a routerLink="/equipe" routerLinkActive="linkSelected">Equipes</a>
+    <a routerLink="/campeonato" routerLinkActive="linkSelected">Campeonato</a>
+    <a routerLink="/corrida" routerLinkActive="linkSelected">Corrida</a>
+    <a routerLink="/piloto" routerLinkActive="linkSelected">Piloto</a>
+    <a routerLink="/pista" routerLinkActive="linkSelected">Pista</a>
+    <a routerLink="/piloto_corrida" routerLinkActive="linkSelected">Piloto-Corrida</a>
+</div>

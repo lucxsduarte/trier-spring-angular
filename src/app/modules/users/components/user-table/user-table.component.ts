@@ -23,7 +23,6 @@ export class UserTableComponent implements OnInit{
 
   clickEditar(user: User, index: number) {
     this.service.clickEditar(user);
-    this.service.editingUser = user;
   }
 
   clickDeletar(user: User) {

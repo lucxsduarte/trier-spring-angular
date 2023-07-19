@@ -1,0 +1,9 @@
+<div class="box">
+    <label for="equipe">Nome: </label>
+    <input type="text" placeholder="Digite o nome do país" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
+    <button (click)="filtrarNome()">Filtrar</button>
+    <br><br>
+    <div class="salvar">
+        <button (click)="insert()">Salvar</button>
+    </div>
+</div>

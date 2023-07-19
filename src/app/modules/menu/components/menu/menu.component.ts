@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
 
+  menuWidth: string = '0';
+
+  public fecharMenu() {
+    this.menuWidth = '0';
+  }
+
+  public abrirMenu() {
+    this.menuWidth = '15%';
+  }
 }
