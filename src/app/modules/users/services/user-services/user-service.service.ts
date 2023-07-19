@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user';
 import { tap } from 'rxjs/operators';
+import { LoginService } from 'src/app/modules/home/services/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,29 @@ export class UserServiceService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private http: HttpClient) {}
+  private httpOptions2 = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    responseType: 'text' as 'json',
+  }
 
-  public getUsers(): Observable<User[]> {
+  constructor(private http: HttpClient, private loginService: LoginService) {}
+
+  public getToken(){
+    this.loginService.getToken("lucas@gmail.com", "123");
+  }
+
+
+  public getUsers(token: string): Observable<User[]> {
+
+    this.getToken(); //this.getToken().subscribe((data) => {}); quando fizer o observable
+
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.loginService.token })
+    };
+
     let url = `http://localhost:8080/usuarios`;
-    this.http.get<User[]>(this.urlBase).subscribe(users => this.userSubject.next(users));
+
+    this.http.get<User[]>(this.urlBase, httpOptions).subscribe(users => this.userSubject.next(users));
     return this.userSubject.asObservable();
   }
 
@@ -39,7 +58,7 @@ export class UserServiceService {
   public insertUser(user: User): Observable<User> {
     return this.http.post<User>(this.urlBase, JSON.stringify(user), this.httpOptions).pipe(
       tap(() => {
-        this.getUsers();
+        this.getUsers('');
       })
     ); 
   }
@@ -51,7 +70,7 @@ export class UserServiceService {
   public editUser(user: User): Observable<User> {
     return this.http.put<User>(`${this.urlBase}/${user.id}`, JSON.stringify(user), this.httpOptions).pipe(
       tap(() => {
-        this.getUsers();
+        this.getUsers('');
       })
     ); 
   }

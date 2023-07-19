@@ -1,0 +1,16 @@
+<div class="box">
+    <table border="1" cellSpacing="0">
+        <th colspan="5">Pistas cadastrados</th>
+        <tr class="tableTitle">
+            <td><b>Tamanho:</b></td>
+            <td><b>País</b></td>
+            <td><b>Ações</b></td>
+        </tr>
+        <tr *ngFor="let pista of listaExibida; let i = index">
+            <td>{{pista.tamanho}}</td>
+            <td>{{pista.pais.name}}</td>
+            <td class="acoes"><button (click)="clickEditar(pista)" >Editar</button><button (click)="clickDeletar(pista)">Deletar</button></td>
+        </tr>
+    </table>
+    <br>
+</div>

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { PaisesModule } from './modules/paises/paises.module';
 import { EquipesModule } from './modules/equipes/equipes.module';
 import { CampeonatosModule } from './modules/campeonatos/campeonatos.module';
+import { PistasModule } from './modules/pistas/pistas.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { CampeonatosModule } from './modules/campeonatos/campeonatos.module';
     PaisesModule,
     EquipesModule,
     CampeonatosModule,
+    PistasModule,
     FormsModule
   ],
   providers: [],

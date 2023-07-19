@@ -15,8 +15,10 @@ input[type="radio"] {
 }
 
 .salvar button {
-    display: block;
-    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
     height: 40px;
     font-size: 18px;
     text-decoration: none;
@@ -25,6 +27,7 @@ input[type="radio"] {
     letter-spacing: 2px;
     text-align: center;
     cursor: pointer;
+    margin-left: 25%;
 }
 
 .box {

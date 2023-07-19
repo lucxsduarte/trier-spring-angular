@@ -14,7 +14,7 @@ button {
     top: 0;
     left: 0;
     background-color: #111;
-    overflow-x: hidden;
+    overflow: scroll;
     padding-top: 60px;
     transition: 0.5s;
 }
