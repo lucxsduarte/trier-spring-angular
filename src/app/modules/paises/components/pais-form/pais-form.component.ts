@@ -10,8 +10,20 @@ import { PaisService } from '../../services/pais.service';
 export class PaisFormComponent {
 
   public pais = {} as Pais;
+  public filtroVisivel = false;
+  public cadastroVisivel = true;
 
   constructor(private service: PaisService){}
+
+  public toggleFiltro() {
+    this.filtroVisivel = !this.filtroVisivel;
+    this.cadastroVisivel = false;
+  }
+
+  public toggleCadastro() {
+    this.cadastroVisivel = !this.cadastroVisivel;
+    this.filtroVisivel = false;
+  }
 
   public filtrarNome() {
     this.service.filtrarPorNome(this.pais.name);

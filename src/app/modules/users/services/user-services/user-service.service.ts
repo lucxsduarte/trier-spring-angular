@@ -14,6 +14,7 @@ export class UserServiceService {
   private urlBase: string = "http://localhost:8080/usuarios";
   private userSubject = new Subject<User[]>();
   public selectUserEvent = new EventEmitter();
+  public token: string = "Bearer ";
   
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,21 +28,29 @@ export class UserServiceService {
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
   public getToken(){
-    this.loginService.getToken("lucas@gmail.com", "123");
+    this.loginService.getToken("teste1@gmail.com", "123").subscribe((token: string) => {
+    this.token += token;
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaa" + token);
+    })
   }
 
 
-  public getUsers(token: string): Observable<User[]> {
+  // public getUsers(): Observable<User[]> {
 
-    this.getToken(); //this.getToken().subscribe((data) => {}); quando fizer o observable
 
-    let httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.loginService.token })
-    };
+  //   let httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token })
+  //   };
 
+  //   let url = `http://localhost:8080/usuarios`;
+
+  //   this.http.get<User[]>(this.urlBase, httpOptions).subscribe(users => this.userSubject.next(users));
+  //   return this.userSubject.asObservable();
+  // }
+
+  public getUsers(): Observable<User[]> {
     let url = `http://localhost:8080/usuarios`;
-
-    this.http.get<User[]>(this.urlBase, httpOptions).subscribe(users => this.userSubject.next(users));
+    this.http.get<User[]>(this.urlBase).subscribe(users => this.userSubject.next(users));
     return this.userSubject.asObservable();
   }
 
@@ -58,7 +67,7 @@ export class UserServiceService {
   public insertUser(user: User): Observable<User> {
     return this.http.post<User>(this.urlBase, JSON.stringify(user), this.httpOptions).pipe(
       tap(() => {
-        this.getUsers('');
+        this.getUsers();
       })
     ); 
   }
@@ -70,7 +79,7 @@ export class UserServiceService {
   public editUser(user: User): Observable<User> {
     return this.http.put<User>(`${this.urlBase}/${user.id}`, JSON.stringify(user), this.httpOptions).pipe(
       tap(() => {
-        this.getUsers('');
+        this.getUsers();
       })
     ); 
   }

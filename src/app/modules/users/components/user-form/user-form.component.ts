@@ -10,8 +10,21 @@ import { User } from '../../models/user';
 export class UserFormComponent implements OnInit{
 
   public user = {} as User;
+  public filtroVisivel = false;
+  public cadastroVisivel = true;
+  public nomeFiltro: string | undefined;
 
   constructor(private service: UserServiceService){}
+
+  public toggleFiltro() {
+    this.filtroVisivel = !this.filtroVisivel;
+    this.cadastroVisivel = false;
+  }
+
+  public toggleCadastro() {
+    this.cadastroVisivel = !this.cadastroVisivel;
+    this.filtroVisivel = false;
+  }
 
   public filtrarNome() {
     this.service.filtrarPorNome(this.user.name);

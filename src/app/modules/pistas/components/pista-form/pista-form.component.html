@@ -3,6 +3,7 @@
         <div>
             <button (click)="toggleCadastro()">Cadastrar</button>
             <div *ngIf="cadastroVisivel">
+                <br>
                 <label for="pista">Tamanho: </label>
                 <input type="number" placeholder="Digite o tamanho da pista" name="pista" [(ngModel)]="pista.tamanho" id="pista" required>
                 <br><br>
@@ -11,7 +12,7 @@
                     <option *ngFor="let pais of paises" [ngValue]="pais">{{pais.name}}</option>
                 </select>
                 <br><br>
-                <div class="salvar">
+                <div class="buscar">
                     <button (click)="insert()">Salvar</button>
                 </div>
             </div>
@@ -19,9 +20,9 @@
         <br>
         <div >
             <button (click)="toggleFiltro()">Filtrar</button>
-            <div *ngIf="filtroVisivel">
+            <div *ngIf="filtroVisivel" class="filtros">
                 <br>
-                <label for="tamanho">Tamanho</label>
+                <label for="tamanho">Tamanho: </label>
                 <input type="number" placeholder="Digite o tamanho" [(ngModel)]="pista.tamanho" name="tamanho" id="tamanho">
                 <br><br>
                 <div class="buscar">
@@ -38,6 +39,7 @@
                 </div>
                 <br>
                 <label for="tamanhoInicial">Tamanho entre</label>
+                <br>
                 <input type="number" placeholder="Digite o tamanho inicial" [(ngModel)]="tamanhoInicial" name="tamanhoInicial" id="tamanhoInicial">
                 <br>
                 <label for="tamanhoFinal">e</label>

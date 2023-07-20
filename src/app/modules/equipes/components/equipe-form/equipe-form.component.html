@@ -1,9 +1,30 @@
 <div class="box">
-    <label for="equipe">Nome: </label>
-    <input type="text" placeholder="Digite o nome do país" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
-    <button (click)="filtrarNome()">Filtrar</button>
-    <br><br>
-    <div class="salvar">
-        <button (click)="insert()">Salvar</button>
+    <div class="botoes">
+        <div>
+            <button (click)="toggleCadastro()">Cadastrar</button>
+            <div *ngIf="cadastroVisivel">
+                <br>
+                <label for="equipe">Nome: </label>
+                <input type="text" placeholder="Digite o nome da equipe" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
+                <br><br>
+                <div class="salvar">
+                    <button (click)="insert()">Salvar</button>
+                </div>
+            </div>
+            <br>
+            <div>
+                <button (click)="toggleFiltro()">Filtrar</button>
+                <div *ngIf="filtroVisivel" class="filtros">
+                    <br>
+                    <label for="equipe">Nome: </label>
+                    <input type="text" placeholder="Digite o nome da equipe" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
+                    <br><br>
+                    <div class="buscar">
+                        <button (click)="filtrarTamanho()">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
 </div>

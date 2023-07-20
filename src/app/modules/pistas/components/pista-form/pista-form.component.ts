@@ -14,7 +14,7 @@ export class PistaFormComponent {
   public pista = {} as Pista;
   public paises: Pais[] = [];
   public filtroVisivel = false;
-  public cadastroVisivel = false;
+  public cadastroVisivel = true;
   public tamanhoFiltro: number | undefined;
   public paisFiltro: number | undefined;
   public tamanhoInicial: number | undefined;

@@ -6,6 +6,8 @@ import { PaisComponent } from './modules/paises/components/pais/pais.component';
 import { EquipeComponent } from './modules/equipes/components/equipe/equipe.component';
 import { CampeonatoComponent } from './modules/campeonatos/components/campeonato/campeonato.component';
 import { PistaComponent } from './modules/pistas/components/pista/pista.component';
+import { PilotoComponent } from './modules/pilotos/components/piloto/piloto.component';
+import { CorridaComponent } from './modules/corridas/components/corrida/corrida.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path: 'equipe', component: EquipeComponent},
   {path: 'campeonato', component: CampeonatoComponent},
   {path: 'pista', component: PistaComponent},
+  {path: 'piloto', component: PilotoComponent},
+  {path: 'corrida', component: CorridaComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,49 @@
+<div class="box">
+    <div class="botoes">
+        <div>
+            <button (click)="toggleCadastro()">Cadastrar</button>
+            <div *ngIf="cadastroVisivel">
+                <br>
+                <label for="nome">Nome: </label>
+                <input type="text" placeholder="Digite o nome do piloto" name="nome" [(ngModel)]="piloto.name" id="nome" required>
+                <br><br>
+                <label for="pais">Países: </label>
+                <select name="pais" id="pais" [(ngModel)]="piloto.pais" required>
+                    <option *ngFor="let pais of paises" [ngValue]="pais">{{pais.name}}</option>
+                </select>
+                <br><br>
+                <label for="equipe">Equipes: </label>
+                <select name="equipe" id="equipe" [(ngModel)]="piloto.equipe" required>
+                    <option *ngFor="let equipe of equipes" [ngValue]="equipe">{{equipe.name}}</option>
+                </select>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="insert()">Salvar</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div >
+            <button (click)="toggleFiltro()">Filtrar</button>
+            <div *ngIf="filtroVisivel" class="filtros">
+                <br>
+                <label for="nome">Nome: </label>
+                <input type="text" placeholder="Digite um nome" name="nome" [(ngModel)]="piloto.name" id="nome" required>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="filtrarNome()">Buscar</button>
+                </div>
+                <br>
+                <label for="pais">Países: </label>
+                <select name="pais" id="pais" [(ngModel)]="piloto.pais" required>
+                    <option *ngFor="let pais of paises" [ngValue]="pais">{{pais.name}}</option>
+                </select>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="filtrarPais()">Buscar</button>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>

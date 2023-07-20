@@ -1,57 +1,42 @@
 <div class="box">
-  <br />
-  <label for="name">Nome: </label>
-  <input
-    type="text"
-    placeholder="Digite seu nome"
-    [(ngModel)]="user.name"
-    #inputName
-    required
-  />
-  <button (click)="filtrarNome()">Filtrar</button>
-  <br /><br />
-  <label for="email">Email: </label>
-  <input
-    type="email"
-    placeholder="exemplo@exemplo.com"
-    [(ngModel)]="user.email"
-    #inputEmail
-    required
-  />
-  <br /><br />
-  <label for="senha">Senha: </label>
-  <input
-    type="password"
-    placeholder="!Exemplo123"
-    [(ngModel)]="user.password"
-    #inputSenha
-    required
-  />
-  <br /><br />
-  <span>Permissão: </span>
-  <input
-    type="radio"
-    id="admin"
-    name="permissao"
-    [(ngModel)]="user.roles"
-    value="ADMIN,USER"
-    #inputAdmin
-  />
-  <label for="admin">ADMIN</label>
-  <input
-    type="radio"
-    id="user"
-    name="permissao"
-    [(ngModel)]="user.roles"
-    value="USER"
-    #inputUser
-    checked
-  />
-  <label for="user">USER</label>
-  <br /><br />
-  <div class="salvar">
-    <button (click)="insertUser()">Salvar</button>
+  <div class="botoes">
+    <div>
+      <button (click)="toggleCadastro()">Cadastrar</button>
+      <div *ngIf="cadastroVisivel">
+        <br/>
+        <label for="name">Nome: </label>
+        <input type="text" placeholder="Digite seu nome" [(ngModel)]="user.name" #inputName required />
+        <br/><br/>
+        <label for="email">Email: </label>
+        <input type="email" placeholder="exemplo@exemplo.com" [(ngModel)]="user.email" #inputEmail required />
+        <br/><br/>
+        <label for="senha">Senha: </label>
+        <input type="password" placeholder="!Exemplo123" [(ngModel)]="user.password" #inputSenha required />
+        <br/><br/>
+        <span>Permissão: </span>
+        <input type="radio" id="admin" name="permissao" [(ngModel)]="user.roles" value="ADMIN,USER" #inputAdmin />
+        <label for="admin">ADMIN</label>
+        <input type="radio" id="user" name="permissao" [(ngModel)]="user.roles" value="USER" #inputUser checked />
+        <label for="user">USER</label>
+        <br/><br/>
+        <div class="buscar">
+          <button (click)="insertUser()">Salvar</button>
+        </div>
+        <br/>
+    </div>
+    <br>
+    <div>
+      <button (click)="toggleFiltro()">Filtrar</button>
+      <div *ngIf="filtroVisivel" class="filtros">
+        <br>
+        <label for="name">Nome: </label>
+        <input type="text" placeholder="Digite um nome" [(ngModel)]="user.name" #inputName required />
+        <br/><br/>
+        <div class="buscar">
+          <button (click)="filtrarNome()">Buscar</button>
+        </div>
+        <br>
+      </div>
+    </div>
   </div>
-  <br />
-  <div></div>
 </div>

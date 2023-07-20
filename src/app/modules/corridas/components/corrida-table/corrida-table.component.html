@@ -1,0 +1,18 @@
+<div class="box">
+    <table border="1" cellSpacing="0">
+        <th colspan="5">Corridas cadastradas</th>
+        <tr class="tableTitle">
+            <td><b>Data</b></td>
+            <td><b>Pista</b></td>
+            <td><b>Campeonato</b></td>
+            <td><b>Ações</b></td>
+        </tr>
+        <tr *ngFor="let corrida of listaExibida; let i = index">
+            <td>{{corrida.data}}</td>
+            <td>{{corrida.pista.tamanho}}</td>
+            <td>{{corrida.campeonato.description}}</td>
+            <td class="acoes"><button (click)="clickEditar(corrida)" >Editar</button><button (click)="clickDeletar(corrida)">Deletar</button></td>
+        </tr>
+    </table>
+    <br>
+</div>

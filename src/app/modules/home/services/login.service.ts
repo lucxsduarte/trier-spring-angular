@@ -11,7 +11,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  public getToken(email: string, password: string) { //adicionar um retorno :Observable<void>
+  public getToken(email: string, password: string):Observable<string> { //adicionar um retorno :Observable<void>
 
     let httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -25,9 +25,6 @@ export class LoginService {
       password: password
     }
 
-    this.http.post<string>(url, userLogin, httpOptions).subscribe((token) => {
-      this.token += token;
-    });
-
+    return this.http.post<string>(url, userLogin, httpOptions);
   }
 }

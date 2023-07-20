@@ -1,0 +1,58 @@
+<div class="box">
+    <div class="botoes">
+        <div>
+            <button (click)="toggleCadastro()">Cadastrar</button>
+            <div *ngIf="cadastroVisivel">
+                <br>
+                <label for="data">Data: </label>
+                <input type="date" placeholder="Digite a data da corrida" name="data" [(ngModel)]="corrida.data" id="data" required>
+                <br><br>
+                <label for="pista">Pistas: </label>
+                <select name="pista" id="pista" [(ngModel)]="corrida.pista" required>
+                    <option *ngFor="let pista of pistas" [ngValue]="pista">{{pista.tamanho}}</option>
+                </select>
+                <br><br>
+                <label for="campeonato">Campeonatos: </label>
+                <select name="campeonato" id="camps" [(ngModel)]="corrida.campeonato" required>
+                    <option *ngFor="let campeonato of campeonatos" [ngValue]="campeonato">{{campeonato.description}}</option>
+                </select>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="insert()">Salvar</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div >
+            <button (click)="toggleFiltro()">Filtrar</button>
+            <div *ngIf="filtroVisivel" class="filtros">
+                <br>
+                <label for="data">Data: </label>
+                <input type="date" placeholder="Digite uma data" name="data" [(ngModel)]="corrida.data" id="data" required>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="filtrarData()">Buscar</button>
+                </div>
+                <br>
+                <label for="pista">Pistas: </label>
+                <select name="pista" id="pista" [(ngModel)]="corrida.pista" required>
+                    <option *ngFor="let pista of pistas" [ngValue]="pista">{{pista.tamanho}}</option>
+                </select>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="filtrarPista()">Buscar</button>
+                </div>
+                <br>
+                <label for="campeonato">Campeonatos: </label>
+                <select name="campeonato" id="campeonato" [(ngModel)]="corrida.campeonato" required>
+                    <option *ngFor="let campeonato of campeonatos" [ngValue]="campeonato">{{campeonato.description}}</option>
+                </select>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="filtrarCampeonato()">Buscar</button>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>

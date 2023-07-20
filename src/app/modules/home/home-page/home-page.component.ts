@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-home-page',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HomePageComponent {
 
+  public email: string = "";
+  public password: string = "";
+
+  constructor(private service: LoginService){}
+
+  public entrar(){
+    this.service.getToken(this.email, this.password);
+  }
 }

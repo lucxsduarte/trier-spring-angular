@@ -16,7 +16,7 @@ export class UserTableComponent implements OnInit{
   constructor(private service: UserServiceService){}
   
   ngOnInit(): void {
-    this.service.getUsers(this.token).subscribe((data) => {
+    this.service.getUsers().subscribe((data) => {
       this.listaExibida = data;
     });
 
@@ -28,7 +28,7 @@ export class UserTableComponent implements OnInit{
 
   clickDeletar(user: User) {
     this.service.deleteUser(user).subscribe(() => {
-      this.service.getUsers('').subscribe((data) => {
+      this.service.getUsers().subscribe((data) => {
         this.listaExibida = data;
       });
     });

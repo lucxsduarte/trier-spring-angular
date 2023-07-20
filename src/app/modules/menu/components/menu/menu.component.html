@@ -3,12 +3,13 @@
 </button>
 <div id="menuLateral" [ngStyle]="{'width': menuWidth}" class="menuLateral">
     <a href="javascript:void(0)" class="botaoFechado" (click)="fecharMenu()">&times;</a>
+    <a routerLink="" routerLinkActive="linkSelected">Login</a>
     <a routerLink="/usuarios" routerLinkActive="linkSelected">Usuários</a>
     <a routerLink="/pais" routerLinkActive="linkSelected">Países</a>
     <a routerLink="/equipe" routerLinkActive="linkSelected">Equipes</a>
-    <a routerLink="/campeonato" routerLinkActive="linkSelected">Campeonato</a>
-    <a routerLink="/corrida" routerLinkActive="linkSelected">Corrida</a>
-    <a routerLink="/piloto" routerLinkActive="linkSelected">Piloto</a>
-    <a routerLink="/pista" routerLinkActive="linkSelected">Pista</a>
+    <a routerLink="/campeonato" routerLinkActive="linkSelected">Campeonatos</a>
+    <a routerLink="/corrida" routerLinkActive="linkSelected">Corridas</a>
+    <a routerLink="/piloto" routerLinkActive="linkSelected">Pilotos</a>
+    <a routerLink="/pista" routerLinkActive="linkSelected">Pistas</a>
     <a routerLink="/piloto_corrida" routerLinkActive="linkSelected">Piloto-Corrida</a>
 </div>
