@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CorridaService } from '../../services/corrida.service';
 import { PistaService } from 'src/app/modules/pistas/services/pista.service';
 import { CampeonatoService } from 'src/app/modules/campeonatos/services/campeonato.service';
-import { Corrida } from '../../model/corrida';
 import { Campeonato } from 'src/app/modules/campeonatos/models/campeonato';
 import { Pista } from 'src/app/modules/pistas/model/pista';
+import { CorridaDTO } from '../../model/corrida-dto';
 
 @Component({
   selector: 'app-corrida-form',
@@ -13,12 +13,11 @@ import { Pista } from 'src/app/modules/pistas/model/pista';
 })
 export class CorridaFormComponent {
 
-  public corrida = {} as Corrida;
+  public corrida = {} as CorridaDTO;
   public pistas: Pista[] = [];
   public campeonatos: Campeonato[] = [];
   public filtroVisivel = false;
   public cadastroVisivel = true;
-  public dataFiltro: string | undefined;
   public pistaFiltro: number | undefined;
   public campeonatoFiltro: number | undefined;
 
@@ -35,40 +34,46 @@ export class CorridaFormComponent {
   }
 
   public filtrarPista(){
-    this.service.filtrarPorPista(this.corrida.pista);
+    this.service.filtrarPorPista(this.corrida.id_pista);
   }
 
   public filtrarData() {
-    this.service.filtrarPorData(this.corrida.data);
+    const [ano, mes, dia] = this.corrida.data.split('-');
+    const dataFormatada =  `${dia}-${mes}-${ano}`;
+    this.service.filtrarPorData(dataFormatada);
   }
 
   public filtrarCampeonato() {
-    this.service.filtrarPorCampeonato(this.corrida.campeonato);
+    this.service.filtrarPorCampeonato(this.corrida.id_campeonato);
   }
 
   public insert(){
 
-    if(!this.corrida.pista){
+    const [ano, mes, dia] = this.corrida.data.split('-');
+    const dataFormatada =  `${dia}-${mes}-${ano}`;
+    this.corrida.data = dataFormatada;
+
+    if(!this.corrida.id_pista){
       alert("Selecione uma pista antes de salvar");
       return
     }
 
-    const pistaSelecionado = this.pistas.find(pistaEscolhida => pistaEscolhida === this.corrida.pista);
+    const pistaSelecionado = this.pistas.find(pistaEscolhida => pistaEscolhida.id === this.corrida.id_pista);
     if(pistaSelecionado) {
-      this.corrida.pista = pistaSelecionado;
+      this.corrida.id_pista = pistaSelecionado.id;
     }else {
       alert("Pista selecionada inválida");
       return;
     }
 
-    if(!this.corrida.campeonato){
+    if(!this.corrida.id_campeonato){
       alert("Selecione um campeonato antes de salvar");
       return
     }
 
-    const campSelecionado = this.campeonatos.find(campeonatoEscolhido => campeonatoEscolhido === this.corrida.campeonato);
+    const campSelecionado = this.campeonatos.find(campeonatoEscolhido => campeonatoEscolhido.id === this.corrida.id_campeonato);
     if(campSelecionado) {
-      this.corrida.campeonato = campSelecionado;
+      this.corrida.id_campeonato = campSelecionado.id;
     }else {
       alert("Campeonato selecionado inválido");
       return;
@@ -84,16 +89,21 @@ export class CorridaFormComponent {
         console.log(data);
       });
     }
-    this.corrida = {} as Corrida;
+    this.corrida = {} as CorridaDTO;
   }
 
   ngOnInit(): void {
-    this.service.selectUserEvent.subscribe((corrida: Corrida) => {
+    this.service.selectUserEvent.subscribe((corrida: CorridaDTO) => {
       this.corrida = corrida;
     });
 
     this.pistaService.listAll().subscribe((pistas: Pista[]) => {
       this.pistas = pistas;
-    })
+    });
+
+    this.campService.listAll().subscribe((camp: Campeonato[]) => {
+      this.campeonatos = camp;
+    });
+
   }
 }

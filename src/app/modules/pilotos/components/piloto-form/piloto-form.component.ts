@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { PilotoService } from '../../services/piloto.service';
-import { Piloto } from '../../model/piloto';
 import { Pais } from 'src/app/modules/paises/models/pais';
 import { Equipe } from 'src/app/modules/equipes/models/equipe';
 import { PaisService } from 'src/app/modules/paises/services/pais.service';
 import { EquipeService } from 'src/app/modules/equipes/services/equipe.service';
+import { PilotoDTO } from '../../model/piloto-dto';
 
 @Component({
   selector: 'app-piloto-form',
@@ -13,7 +13,7 @@ import { EquipeService } from 'src/app/modules/equipes/services/equipe.service';
 })
 export class PilotoFormComponent {
 
-  public piloto = {} as Piloto;
+  public piloto = {} as PilotoDTO;
   public paises: Pais[] = [];
   public equipes: Equipe[] = [];
   public filtroVisivel = false;
@@ -34,7 +34,7 @@ export class PilotoFormComponent {
   }
 
   public filtrarPais(){
-    this.service.filtrarPorPais(this.piloto.pais);
+    this.service.filtrarPorPais(this.piloto.id_pais);
   }
 
   public filtrarNome() {
@@ -42,32 +42,32 @@ export class PilotoFormComponent {
   }
 
   public filtrarEquipe() {
-    this.service.filtrarPorEquipe(this.piloto.equipe);
+    this.service.filtrarPorEquipe(this.piloto.id_equipe);
   }
 
   public insert(){
 
-    if(!this.piloto.equipe){
+    if(!this.piloto.id_equipe){
       alert("Selecione uma equipe antes de salvar");
       return
     }
 
-    const equipeSelecionada = this.equipes.find(equipeEscolhida => equipeEscolhida === this.piloto.equipe);
+    const equipeSelecionada = this.equipes.find(equipeEscolhida => equipeEscolhida.id === this.piloto.id_equipe);
     if(equipeSelecionada) {
-      this.piloto.equipe = equipeSelecionada;
+      this.piloto.id_equipe = equipeSelecionada.id;
     }else {
       alert("Equipe selecionada inválida");
       return;
     }
 
-    if(!this.piloto.pais){
+    if(!this.piloto.id_pais){
       alert("Selecione um país antes de salvar");
       return
     }
 
-    const paisSelecionado = this.paises.find(paisEscolhido => paisEscolhido === this.piloto.pais);
+    const paisSelecionado = this.paises.find(paisEscolhido => paisEscolhido.id === this.piloto.id_pais);
     if(paisSelecionado) {
-      this.piloto.pais = paisSelecionado;
+      this.piloto.id_pais = paisSelecionado.id;
     }else {
       alert("País selecionado inválido");
       return;
@@ -83,11 +83,11 @@ export class PilotoFormComponent {
         console.log(data);
       });
     }
-    this.piloto = {} as Piloto;
+    this.piloto = {} as PilotoDTO;
   }
 
   ngOnInit(): void {
-    this.service.selectUserEvent.subscribe((piloto: Piloto) => {
+    this.service.selectUserEvent.subscribe((piloto: PilotoDTO) => {
       this.piloto = piloto;
     });
 

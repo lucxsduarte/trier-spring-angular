@@ -27,30 +27,23 @@ export class UserServiceService {
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
-  public getToken(){
-    this.loginService.getToken("teste1@gmail.com", "123").subscribe((token: string) => {
-    this.token += token;
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaa" + token);
-    })
-  }
-
-
   // public getUsers(): Observable<User[]> {
-
-
-  //   let httpOptions = {
-  //     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token })
-  //   };
-
   //   let url = `http://localhost:8080/usuarios`;
-
-  //   this.http.get<User[]>(this.urlBase, httpOptions).subscribe(users => this.userSubject.next(users));
+  //   this.http.get<User[]>(this.urlBase).subscribe(users => this.userSubject.next(users));
   //   return this.userSubject.asObservable();
   // }
 
   public getUsers(): Observable<User[]> {
-    let url = `http://localhost:8080/usuarios`;
-    this.http.get<User[]>(this.urlBase).subscribe(users => this.userSubject.next(users));
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.loginService.token
+      }),
+    };
+    this.http.get<User[]>(this.urlBase, httpOptions)
+      .subscribe((users) => {
+        this.userSubject.next(users)
+      });
     return this.userSubject.asObservable();
   }
 

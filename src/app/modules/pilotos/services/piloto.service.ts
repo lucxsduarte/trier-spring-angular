@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { Pais } from '../../paises/models/pais';
 import { Equipe } from '../../equipes/models/equipe';
-import { Piloto } from '../model/piloto';
+import { PilotoDTO } from '../model/piloto-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { Piloto } from '../model/piloto';
 export class PilotoService {
 
   private urlBase: string = "http://localhost:8080/piloto";
-  private pilotoSubject = new Subject<Piloto[]>();
+  private pilotoSubject = new Subject<PilotoDTO[]>();
   public selectUserEvent = new EventEmitter();
   
   private httpOptions = {
@@ -20,51 +20,51 @@ export class PilotoService {
 
   constructor(private http: HttpClient) {}
 
-  public listAll(): Observable<Piloto[]> {
+  public listAll(): Observable<PilotoDTO[]> {
     let url = `http://localhost:8080/piloto`;
-    this.http.get<Piloto[]>(this.urlBase).subscribe(pilotos => this.pilotoSubject.next(pilotos));
+    this.http.get<PilotoDTO[]>(this.urlBase).subscribe(pilotos => this.pilotoSubject.next(pilotos));
     return this.pilotoSubject.asObservable();
   }
 
-  public delete(piloto: Piloto): Observable<void> {
+  public delete(piloto: PilotoDTO): Observable<void> {
     return this.http.delete<void>(`${this.urlBase}/${piloto.id}`);
   }
 
-  public clickEditar(piloto: Piloto){
+  public clickEditar(piloto: PilotoDTO){
     this.selectUserEvent.emit(piloto);
   }
 
-  public insert(piloto: Piloto): Observable<Piloto> {
-    return this.http.post<Piloto>(this.urlBase, JSON.stringify(piloto), this.httpOptions).pipe(
+  public insert(piloto: PilotoDTO): Observable<PilotoDTO> {
+    return this.http.post<PilotoDTO>(this.urlBase, JSON.stringify(piloto), this.httpOptions).pipe(
       tap(() => {
         this.listAll();
       })
     ); 
   }
 
-  public edit(piloto: Piloto): Observable<Piloto> {
-    return this.http.put<Piloto>(`${this.urlBase}/${piloto.id}`, JSON.stringify(piloto), this.httpOptions).pipe(
+  public edit(piloto: PilotoDTO): Observable<PilotoDTO> {
+    return this.http.put<PilotoDTO>(`${this.urlBase}/${piloto.id}`, JSON.stringify(piloto), this.httpOptions).pipe(
       tap(() => {
         this.listAll();
       })
     ); 
   }
 
-  public filtrarPorNome(nome: string): Observable<Piloto[]> {
-    let url = `${this.urlBase}/name/${nome}`;
-    this.http.get<Piloto[]>(url).subscribe(pilotos => this.pilotoSubject.next(pilotos));
+  public filtrarPorNome(nome: string): Observable<PilotoDTO[]> {
+    let url = `${this.urlBase}/nome/${nome}`;
+    this.http.get<PilotoDTO[]>(url).subscribe(pilotos => this.pilotoSubject.next(pilotos));
     return this.pilotoSubject.asObservable();
   }
 
-  public filtrarPorPais(pais: Pais): Observable<Piloto[]> {
-    let url = `${this.urlBase}/pais/${pais.id}`;
-    this.http.get<Piloto[]>(url).subscribe(pilotos => this.pilotoSubject.next(pilotos));
+  public filtrarPorPais(pais: number): Observable<PilotoDTO[]> {
+    let url = `${this.urlBase}/pais/${pais}`;
+    this.http.get<PilotoDTO[]>(url).subscribe(pilotos => this.pilotoSubject.next(pilotos));
     return this.pilotoSubject.asObservable();
   }
 
-  public filtrarPorEquipe(equipe: Equipe): Observable<Piloto[]> {
-    let url = `${this.urlBase}/equipe/${equipe.id}`;
-    this.http.get<Piloto[]>(url).subscribe(pilotos => this.pilotoSubject.next(pilotos));
+  public filtrarPorEquipe(equipe: number): Observable<PilotoDTO[]> {
+    let url = `${this.urlBase}/equipe/${equipe}`;
+    this.http.get<PilotoDTO[]>(url).subscribe(pilotos => this.pilotoSubject.next(pilotos));
     return this.pilotoSubject.asObservable();
   }
 

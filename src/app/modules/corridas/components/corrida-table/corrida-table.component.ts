@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Corrida } from '../../model/corrida';
 import { CorridaService } from '../../services/corrida.service';
+import { CorridaDTO } from '../../model/corrida-dto';
 
 @Component({
   selector: 'app-corrida-table',
@@ -9,7 +9,7 @@ import { CorridaService } from '../../services/corrida.service';
 })
 export class CorridaTableComponent {
 
-  public listaExibida : Corrida[] = [];
+  public listaExibida : CorridaDTO[] = [];
 
   constructor(private service: CorridaService){}
 
@@ -20,7 +20,7 @@ export class CorridaTableComponent {
 
   }
 
-  clickDeletar(corrida: Corrida) {
+  clickDeletar(corrida: CorridaDTO) {
     this.service.delete(corrida).subscribe(() => {
       this.service.listAll().subscribe((data) => {
         this.listaExibida = data;
@@ -28,7 +28,7 @@ export class CorridaTableComponent {
     });
   } 
 
-  clickEditar(corrida: Corrida) {
+  clickEditar(corrida: CorridaDTO) {
     this.service.clickEditar(corrida);
   }
 }

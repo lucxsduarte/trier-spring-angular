@@ -7,7 +7,7 @@
                 <label for="equipe">Nome: </label>
                 <input type="text" placeholder="Digite o nome da equipe" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
                 <br><br>
-                <div class="salvar">
+                <div class="buscar">
                     <button (click)="insert()">Salvar</button>
                 </div>
             </div>
@@ -17,10 +17,10 @@
                 <div *ngIf="filtroVisivel" class="filtros">
                     <br>
                     <label for="equipe">Nome: </label>
-                    <input type="text" placeholder="Digite o nome da equipe" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
+                    <input type="text" placeholder="Digite um nome" name="pais" [(ngModel)]="equipe.name" id="equipe" required>
                     <br><br>
                     <div class="buscar">
-                        <button (click)="filtrarTamanho()">Buscar</button>
+                        <button (click)="filtrarNome()">Buscar</button>
                     </div>
                 </div>
             </div>

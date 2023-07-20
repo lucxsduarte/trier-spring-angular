@@ -1,9 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { Corrida } from '../model/corrida';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Campeonato } from '../../campeonatos/models/campeonato';
 import { Pista } from '../../pistas/model/pista';
+import { CorridaDTO } from '../model/corrida-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { Pista } from '../../pistas/model/pista';
 export class CorridaService {
 
   private urlBase: string = "http://localhost:8080/corrida";
-  private corridaSubject = new Subject<Corrida[]>();
+  private corridaSubject = new Subject<CorridaDTO[]>();
   public selectUserEvent = new EventEmitter();
   
   private httpOptions = {
@@ -20,51 +20,51 @@ export class CorridaService {
 
   constructor(private http: HttpClient) {}
 
-  public listAll(): Observable<Corrida[]> {
+  public listAll(): Observable<CorridaDTO[]> {
     let url = `http://localhost:8080/corrida`;
-    this.http.get<Corrida[]>(this.urlBase).subscribe(corridas => this.corridaSubject.next(corridas));
+    this.http.get<CorridaDTO[]>(this.urlBase).subscribe(corridas => this.corridaSubject.next(corridas));
     return this.corridaSubject.asObservable();
   }
 
-  public delete(corrida: Corrida): Observable<void> {
+  public delete(corrida: CorridaDTO): Observable<void> {
     return this.http.delete<void>(`${this.urlBase}/${corrida.id}`);
   }
 
-  public clickEditar(corrida: Corrida){
+  public clickEditar(corrida: CorridaDTO){
     this.selectUserEvent.emit(corrida);
   }
 
-  public insert(corrida: Corrida): Observable<Corrida> {
-    return this.http.post<Corrida>(this.urlBase, JSON.stringify(corrida), this.httpOptions).pipe(
+  public insert(corrida: CorridaDTO): Observable<CorridaDTO> {
+    return this.http.post<CorridaDTO>(this.urlBase, JSON.stringify(corrida), this.httpOptions).pipe(
       tap(() => {
         this.listAll();
       })
     ); 
   }
 
-  public edit(corrida: Corrida): Observable<Corrida> {
-    return this.http.put<Corrida>(`${this.urlBase}/${corrida.id}`, JSON.stringify(corrida), this.httpOptions).pipe(
+  public edit(corrida: CorridaDTO): Observable<CorridaDTO> {
+    return this.http.put<CorridaDTO>(`${this.urlBase}/${corrida.id}`, JSON.stringify(corrida), this.httpOptions).pipe(
       tap(() => {
         this.listAll();
       })
     ); 
   }
 
-  public filtrarPorData(data: string): Observable<Corrida[]> {
+  public filtrarPorData(data: string): Observable<CorridaDTO[]> {
     let url = `${this.urlBase}/data/${data}`;
-    this.http.get<Corrida[]>(url).subscribe(corridas => this.corridaSubject.next(corridas));
+    this.http.get<CorridaDTO[]>(url).subscribe(corridas => this.corridaSubject.next(corridas));
     return this.corridaSubject.asObservable();
   }
 
-  public filtrarPorPista(pista: Pista): Observable<Corrida[]> {
-    let url = `${this.urlBase}/pista/${pista.id}`;
-    this.http.get<Corrida[]>(url).subscribe(corridas => this.corridaSubject.next(corridas));
+  public filtrarPorPista(pista: number): Observable<CorridaDTO[]> {
+    let url = `${this.urlBase}/pista/${pista}`;
+    this.http.get<CorridaDTO[]>(url).subscribe(corridas => this.corridaSubject.next(corridas));
     return this.corridaSubject.asObservable();
   }
 
-  public filtrarPorCampeonato(campeonato: Campeonato): Observable<Corrida[]> {
-    let url = `${this.urlBase}/campeonato/${campeonato.id}`;
-    this.http.get<Corrida[]>(url).subscribe(corridas => this.corridaSubject.next(corridas));
+  public filtrarPorCampeonato(campeonato: number): Observable<CorridaDTO[]> {
+    let url = `${this.urlBase}/campeonato/${campeonato}`;
+    this.http.get<CorridaDTO[]>(url).subscribe(corridas => this.corridaSubject.next(corridas));
     return this.corridaSubject.asObservable();
   }
 }

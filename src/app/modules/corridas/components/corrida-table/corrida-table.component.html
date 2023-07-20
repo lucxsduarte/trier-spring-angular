@@ -9,8 +9,8 @@
         </tr>
         <tr *ngFor="let corrida of listaExibida; let i = index">
             <td>{{corrida.data}}</td>
-            <td>{{corrida.pista.tamanho}}</td>
-            <td>{{corrida.campeonato.description}}</td>
+            <td>{{corrida.tamanho_pista}}</td>
+            <td>{{corrida.desc_camp}}</td>
             <td class="acoes"><button (click)="clickEditar(corrida)" >Editar</button><button (click)="clickDeletar(corrida)">Deletar</button></td>
         </tr>
     </table>

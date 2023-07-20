@@ -8,13 +8,13 @@
                 <input type="text" placeholder="Digite o nome do piloto" name="nome" [(ngModel)]="piloto.name" id="nome" required>
                 <br><br>
                 <label for="pais">Países: </label>
-                <select name="pais" id="pais" [(ngModel)]="piloto.pais" required>
-                    <option *ngFor="let pais of paises" [ngValue]="pais">{{pais.name}}</option>
+                <select name="pais" id="pais" [(ngModel)]="piloto.id_pais" required>
+                    <option *ngFor="let pais of paises" [ngValue]="pais.id">{{pais.name}}</option>
                 </select>
                 <br><br>
                 <label for="equipe">Equipes: </label>
-                <select name="equipe" id="equipe" [(ngModel)]="piloto.equipe" required>
-                    <option *ngFor="let equipe of equipes" [ngValue]="equipe">{{equipe.name}}</option>
+                <select name="equipe" id="equipe" [(ngModel)]="piloto.id_equipe" required>
+                    <option *ngFor="let equipe of equipes" [ngValue]="equipe.id">{{equipe.name}}</option>
                 </select>
                 <br><br>
                 <div class="buscar">
@@ -35,14 +35,22 @@
                 </div>
                 <br>
                 <label for="pais">Países: </label>
-                <select name="pais" id="pais" [(ngModel)]="piloto.pais" required>
-                    <option *ngFor="let pais of paises" [ngValue]="pais">{{pais.name}}</option>
+                <select name="pais" id="pais" [(ngModel)]="piloto.id_pais" required>
+                    <option *ngFor="let pais of paises" [ngValue]="pais.id">{{pais.name}}</option>
                 </select>
                 <br><br>
                 <div class="buscar">
                     <button (click)="filtrarPais()">Buscar</button>
                 </div>
                 <br><br>
+                <label for="equipe">Equipes: </label>
+                <select name="equipe" id="equipe" [(ngModel)]="piloto.id_equipe" required>
+                    <option *ngFor="let equipe of equipes" [ngValue]="equipe.id">{{equipe.name}}</option>
+                </select>
+                <br><br>
+                <div class="buscar">
+                    <button (click)="filtrarEquipe()">Buscar</button>
+                </div>
             </div>
         </div>
     </div>

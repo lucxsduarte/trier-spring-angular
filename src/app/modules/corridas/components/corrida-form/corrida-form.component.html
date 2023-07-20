@@ -8,13 +8,13 @@
                 <input type="date" placeholder="Digite a data da corrida" name="data" [(ngModel)]="corrida.data" id="data" required>
                 <br><br>
                 <label for="pista">Pistas: </label>
-                <select name="pista" id="pista" [(ngModel)]="corrida.pista" required>
-                    <option *ngFor="let pista of pistas" [ngValue]="pista">{{pista.tamanho}}</option>
+                <select name="pista" id="pista" [(ngModel)]="corrida.id_pista" required>
+                    <option *ngFor="let pista of pistas" [ngValue]="pista.id">{{pista.tamanho}}</option>
                 </select>
                 <br><br>
                 <label for="campeonato">Campeonatos: </label>
-                <select name="campeonato" id="camps" [(ngModel)]="corrida.campeonato" required>
-                    <option *ngFor="let campeonato of campeonatos" [ngValue]="campeonato">{{campeonato.description}}</option>
+                <select name="campeonato" id="camps" [(ngModel)]="corrida.id_campeonato" required>
+                    <option *ngFor="let campeonato of campeonatos" [ngValue]="campeonato.id">{{campeonato.description}}</option>
                 </select>
                 <br><br>
                 <div class="buscar">
@@ -35,7 +35,7 @@
                 </div>
                 <br>
                 <label for="pista">Pistas: </label>
-                <select name="pista" id="pista" [(ngModel)]="corrida.pista" required>
+                <select name="pista" id="pista" [(ngModel)]="corrida.id_pista" required>
                     <option *ngFor="let pista of pistas" [ngValue]="pista">{{pista.tamanho}}</option>
                 </select>
                 <br><br>
@@ -44,7 +44,7 @@
                 </div>
                 <br>
                 <label for="campeonato">Campeonatos: </label>
-                <select name="campeonato" id="campeonato" [(ngModel)]="corrida.campeonato" required>
+                <select name="campeonato" id="campeonato" [(ngModel)]="corrida.id_campeonato" required>
                     <option *ngFor="let campeonato of campeonatos" [ngValue]="campeonato">{{campeonato.description}}</option>
                 </select>
                 <br><br>

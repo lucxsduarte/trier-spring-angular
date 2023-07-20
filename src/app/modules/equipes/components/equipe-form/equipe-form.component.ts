@@ -10,8 +10,20 @@ import { EquipeService } from '../../services/equipe.service';
 export class EquipeFormComponent {
 
   public equipe = {} as Equipe;
+  public filtroVisivel = false;
+  public cadastroVisivel = true;
 
   constructor(private service: EquipeService){}
+
+  public toggleFiltro() {
+    this.filtroVisivel = !this.filtroVisivel;
+    this.cadastroVisivel = false;
+  }
+
+  public toggleCadastro() {
+    this.cadastroVisivel = !this.cadastroVisivel;
+    this.filtroVisivel = false;
+  }
 
   public filtrarNome() {
     this.service.filtrarPorNome(this.equipe.name);
